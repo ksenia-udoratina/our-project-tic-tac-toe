@@ -19,13 +19,13 @@ int readInt(const char* message, int min, int max) {
     while (1) {
         printf("%s", message);
         if (scanf("%d", &value) != 1) {
-            printf("Ошибка: нужно ввести целое число.\n");
+            printf("РћС€РёР±РєР°: РЅСѓР¶РЅРѕ РІРІРµСЃС‚Рё С†РµР»РѕРµ С‡РёСЃР»Рѕ.\n");
             clearInput();
             continue;
         }
         clearInput();
         if (value < min || value > max) {
-            printf("Ошибка: введите число от %d до %d.\n", min, max);
+            printf("РћС€РёР±РєР°: РІРІРµСЃС‚Рё С‡РёСЃР»Рѕ РѕС‚ %d РґРѕ %d.\n", min, max);
             continue;
         }
         return value;
@@ -37,11 +37,11 @@ void clearScreen(void) {
 void createBoard(void) {
     int i, j;
     board = (char**)malloc(rows * sizeof(char*));
-    if (board == NULL) { printf("Не удалось выделить память.\n"); exit(1); }
+    if (board == NULL) { printf("РќРµСѓРґР°Р»РѕСЃСЊ РІС‹РґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ.\n"); exit(1); }
 
     for (i = 0; i < rows; i++) {
         board[i] = (char*)malloc(cols * sizeof(char));
-        if (board[i] == NULL) { printf("Не удалось выделить память.\n"); exit(1); }
+        if (board[i] == NULL) { printf("РќРµСѓРґР°Р»РѕСЃСЊ РІС‹РґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ.\n"); exit(1); }
         for (j = 0; j < cols; j++) { board[i][j] = EMPTY; }
     }
 }
@@ -117,20 +117,20 @@ int findWinningMove(char player, int* out_r, int* out_c) {
 }
 void aiMove(int* out_r, int* out_c) {
     int r, c;
-    printf("Компьютер (O) думает...\n");
+    printf("РљРѕРјРїСЊСЋС‚РµСЂ РґСѓРјР°РµС‚...\n");
     Sleep(1000);
     if (findWinningMove(O, &r, &c)) {
         board[r][c] = O;
         *out_r = r;
         *out_c = c;
-        printf("Компьютер походил в: %d, %d\n", r + 1, c + 1);
+        printf("РљРѕРјРїСЊСЋС‚РµСЂ РїРѕР·РѕРґРёР» РІ: %d, %d\n", r + 1, c + 1);
         return;
     }
     if (findWinningMove(X, &r, &c)) {
         board[r][c] = O;
         *out_r = r;
         *out_c = c;
-        printf("Компьютер заблокировал ваш ход в: %d, %d\n", r + 1, c + 1);
+        printf("РљРѕРјРїСЊСЋС‚РµСЂ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°Р» РІР°С€ С…РѕРґ РІ: %d, %d\n", r + 1, c + 1);
         return;
     }
     do {
@@ -140,7 +140,7 @@ void aiMove(int* out_r, int* out_c) {
     board[r][c] = O;
     *out_r = r;
     *out_c = c;
-    printf("Компьютер походил в: %d, %d\n", r + 1, c + 1);
+    printf("РљРѕРјРїСЊС‚РµСЂ РїРѕС…РѕРґРёР» РІ: %d, %d\n", r + 1, c + 1);
 }
 int main(void) {
     setlocale(LC_ALL, "Russian");
@@ -148,19 +148,19 @@ int main(void) {
     srand((unsigned int)time(NULL));
     char player = X;
     int gameMode;
-    printf("КРЕСТИКИ-НОЛИКИ\n\n");
-    printf("Выберите режим игры:\n");
-    printf("1 - Игрок против Игрока\n");
-    printf("2 - Игрок против Компьютера\n");
-    gameMode = readInt("Ваш выбор (1 или 2): ", 1, 2);
+    printf("РљСЂРµСЃС‚РёРєРё-РЅРѕР»РёРєРё\n\n");
+    printf("Р’С‹Р±РµСЂРёС‚Рµ СЂРµР¶РёРј РёРіСЂС‹:\n");
+    printf("1 - РРіСЂРѕРє РїСЂРѕС‚РёРІ РёРіСЂРѕРєР°\n");
+    printf("2 - РРіСЂРѕРє РїСЂРѕС‚РёРІ РєРѕРјРїСЊСЋС‚РµСЂР°\n");
+    gameMode = readInt(Р’С‹Р±РµСЂРёС‚Рµ (1 РёР»Рё 2): ", 1, 2);
     printf("\n");
-    rows = readInt("Введите число строк (от 3 до 50): ", 3, 50);
-    cols = readInt("Введите число столбцов (от 3 до 50): ", 3, 50);
+    rows = readInt("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ СЃС‚СЂРѕРє (Г®ГІ 3 Г¤Г® 50): ", 3, 50);
+    cols = readInt("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ СЃС‚РѕР»Р±С†РѕРІ (Г®ГІ 3 Г¤Г® 50): ", 3, 50);
     if (rows < cols) { winLength = rows; }
     else { winLength = cols; }
     clearScreen(); 
-    printf("Поле: %d x %d\n", rows, cols);
-    printf("Для победы нужно собрать %d символов подряд.\n", winLength);
+    printf("РџРѕР»Рµ: %d x %d\n", rows, cols);
+    printf("Р”Р»СЏ РїРѕР±РµРґС‹ РЅСѓР¶РЅРѕ СЃРѕР±СЂР°С‚СЊ %d СЃРёРјРІРѕР»РѕРІ РїРѕРґСЂСЏРґ.\n", winLength);
 
     createBoard();
     while (1) {
@@ -168,12 +168,12 @@ int main(void) {
         clearScreen();
         printBoard();
         if (player == X) {
-            printf("Ход игрока X\n");
-            r = readInt("Введите номер строки: ", 1, rows) - 1;
-            c = readInt("Введите номер столбца: ", 1, cols) - 1;
+            printf("РҐРѕРґ РёРіСЂРѕРєР° X\n");
+            r = readInt("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё: ", 1, rows) - 1;
+            c = readInt("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚РѕР»Р±С†Р°: ", 1, cols) - 1;
 
             if (board[r][c] != EMPTY) {
-                printf("Эта клетка уже занята. Сделайте другой ход.\n");
+                printf("Р­С‚Р° РєР»РµС‚РєР° СѓР¶Рµ Р·Р°РЅСЏС‚Р°. РЎРґРµР»Р°Р№С‚Рµ РґСЂСѓРіРѕР№ С…РѕРґ.\n");
                 Sleep(1500); 
                 continue;
             }
@@ -186,12 +186,12 @@ int main(void) {
                 aiMove(&r, &c);
             }
             else {
-                printf("Ход игрока O\n");
-                r = readInt("Введите номер строки: ", 1, rows) - 1;
-                c = readInt("Введите номер столбца: ", 1, cols) - 1;
+                printf("РҐРѕРґ РёРіСЂРѕРєР° O\n");
+                r = readInt("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚РѕСЂРєРё: ", 1, rows) - 1;
+                c = readInt("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚РѕР»Р±С†Р°: ", 1, cols) - 1;
 
                 if (board[r][c] != EMPTY) {
-                    printf("Эта клетка уже занята. Сделайте другой ход.\n");
+                    printf("Р­С‚Р° РєР»РµС‚РєР° СѓР¶Рµ Р·Р°РЅСЏС‚Р°. РЎРґРµР»Р°Р№С‚Рµ РґСЂСѓРіРѕР№ С…РѕРґ.\n");
                     Sleep(1500);
                     continue;
                 }
@@ -201,7 +201,7 @@ int main(void) {
         if (checkWin(r, c, player)) {
             clearScreen();
             printBoard();
-            printf("Победил игрок %c!\n", player);
+            printf("РџРѕР±РµРґРёР» РёРіСЂРѕРє %c!\n", player);
             Sleep(3000); 
             clearScreen();
             break;
@@ -209,7 +209,7 @@ int main(void) {
         if (isBoardFull()) {
             clearScreen();
             printBoard();
-            printf("Ничья: свободных клеток не осталось.\n");
+            printf("РќРёС‡СЊСЏ: РІСЃРµ РєР»РµС‚РєРё Р·Р°РЅСЏС‚С‹.\n");
             Sleep(3000); 
             clearScreen();     
             break;
